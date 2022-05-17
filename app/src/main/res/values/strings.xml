@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">HeroesOfCalculus</string>
+    <string name="default_tvCalculus_text">2 + 2 = ?</string>
+    <string name="default_answer1">3</string>
+    <string name="default_answer2">4</string>
+    <string name="default_answer3">5</string>
+    <string name="default_answer4">6</string>
 </resources>
