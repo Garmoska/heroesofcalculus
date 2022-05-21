@@ -1,14 +1,18 @@
 package com.le.hoc.bl;
 
 import android.graphics.drawable.AnimationDrawable;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 public class Sprite {
 	public void setAnimation(AppCompatActivity activity, int idAnimation){
-		//TODO set w, h
 		ImageView iv = (ImageView) activity.findViewById(getIdImageView());
+		iv.getLayoutParams().width = getWidth();
+		iv.getLayoutParams().height = getHeight();
+		iv.requestLayout();
+		//iv.setImageResource(idAnimation);
 		iv.setBackgroundResource(idAnimation);
 		animationDrawable = (AnimationDrawable) iv.getBackground();
 	}

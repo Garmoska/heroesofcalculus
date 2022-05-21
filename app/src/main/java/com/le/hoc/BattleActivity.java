@@ -30,9 +30,9 @@ public class BattleActivity extends AppCompatActivity {
 		ConstraintLayout layout = (ConstraintLayout) findViewById(R.id.mainLayout);
 		layout.setBackgroundResource(resID);
 		//init both sprites
-		heroSprite = new Sprite(R.id.ivHero, 360, 200);
-		monsterSprite = new Sprite(R.id.ivMonster, 256, 256);
-		heroSprite.setAnimation(this, R.drawable.knight_idle);
+		heroSprite = new Sprite(R.id.ivHero, 700, 700);
+		monsterSprite = new Sprite(R.id.ivMonster, 500, 500);
+		heroSprite.setAnimation(this, R.drawable.dragon_idle);
 		monsterSprite.setAnimation(this, R.drawable.jinn_idle);
 		heroSprite.runAnimation();
 		monsterSprite.runAnimation();
