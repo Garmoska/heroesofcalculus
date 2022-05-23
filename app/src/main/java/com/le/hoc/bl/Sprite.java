@@ -6,27 +6,61 @@ import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class Sprite {
-	public void setAnimation(AppCompatActivity activity, int idAnimation){
-		ImageView iv = (ImageView) activity.findViewById(getIdImageView());
-		iv.getLayoutParams().width = getWidth();
-		iv.getLayoutParams().height = getHeight();
-		iv.requestLayout();
-		//iv.setImageResource(idAnimation);
-		iv.setBackgroundResource(idAnimation);
-		animationDrawable = (AnimationDrawable) iv.getBackground();
-	}
+import com.le.hoc.R;
 
+public class Sprite {
 	public void runAnimation(){
 		if (animationDrawable != null) animationDrawable.start();
 	}
 
-	public Sprite(int idImageView, int width, int height){
+	private int getResourceByName(AppCompatActivity activity, String mDrawableName){
+		return activity.getResources().getIdentifier(mDrawableName, "drawable", activity.getPackageName());
+	}
+
+	public int getHearts() {
+		return hearts;
+	}
+
+	public void setHearts(int hearts) {
+		this.hearts = hearts;
+	}
+
+	private int hearts;
+
+	private void runAnimationRoutines(AppCompatActivity activity, String action){
+		ImageView iv = activity.findViewById(getIdImageView());
+		iv.getLayoutParams().width = getWidth();
+		iv.getLayoutParams().height = getHeight();
+		//iv.requestLayout();
+		//iv.setImageResource(idAnimation);
+		int idAnimation = getResourceByName(activity, getResName() + "_" + action);
+		iv.setBackgroundResource(idAnimation);
+		animationDrawable = (AnimationDrawable) iv.getBackground();
+	}
+
+	public void runIdleAnimation(AppCompatActivity activity){
+		runAnimationRoutines(activity, "idle");
+	}
+
+	public void runHurtAnimation(AppCompatActivity activity){
+		runAnimationRoutines(activity, "hurt");
+	}
+
+	public void runAttackAnimation(AppCompatActivity activity){
+		runAnimationRoutines(activity, "attack");
+	}
+
+	public void runDieAnimation(AppCompatActivity activity){
+		runAnimationRoutines(activity, "die");
+	}
+
+	public Sprite(int idImageView, String resName, int width, int height){
+		setResName(resName);
 		setWidth(width);
 		setHeight(height);
 		setIdImageView(idImageView);
+		setHearts(3);
 	}
-
 
 	public int getWidth() {
 		return width;
@@ -58,4 +92,14 @@ public class Sprite {
 	}
 
 	private int height;
+
+	public String getResName() {
+		return resName;
+	}
+
+	private void setResName(String resName) {
+		this.resName = resName;
+	}
+
+	private String resName;
 }

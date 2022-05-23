@@ -1,9 +1,11 @@
 package com.le.hoc;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.ButtonBarLayout;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -26,17 +28,16 @@ public class BattleActivity extends AppCompatActivity {
 		setContentView(R.layout.activity_battle);
 		//set background picture
 		int randomNum = ThreadLocalRandom.current().nextInt(1, 4 + 1);
-		final String mDrawableName = "battleground" + randomNum;// + ".png";
-		int resID = getResources().getIdentifier(mDrawableName, "drawable", getPackageName());
+		int resID = getResourceByName("battleground" + randomNum);
 		ConstraintLayout layout = findViewById(R.id.mainLayout);
 		layout.setBackgroundResource(resID);
 		//init both sprites
-		heroSprite = new Sprite(R.id.ivHero, 700, 700);
-		monsterSprite = new Sprite(R.id.ivMonster, 500, 500);
-		heroSprite.setAnimation(this, R.drawable.dragon_idle);
-		monsterSprite.setAnimation(this, R.drawable.jinn_idle);
+		heroSprite = new Sprite(R.id.ivHero, "dragon", 700, 700);
+		monsterSprite = new Sprite(R.id.ivMonster, "jinn", 500, 500);
+		heroSprite.runIdleAnimation(this);
+		monsterSprite.runIdleAnimation(this);
 		//
-		int baseValue = ThreadLocalRandom.current().nextInt(1, 9 + 1);
+		int baseValue = ThreadLocalRandom.current().nextInt(2, 9 + 1);
 		tasks = CalculusFactory.prepareTasks(baseValue, 5);
 		currentTask = 0;
 	}
@@ -61,5 +62,35 @@ public class BattleActivity extends AppCompatActivity {
 		heroSprite.runAnimation();
 		monsterSprite.runAnimation();
 		displayTask();
+	}
+
+	public void buttonAnswerClick(View view){
+		int answer = Integer.parseInt((String) ((Button)findViewById(view.getId())).getText());
+		final CalculusInfo ci = tasks.get(currentTask);
+		if (ci.getCorrectAnswer() == answer){
+			executeAttack(heroSprite, monsterSprite);
+		}
+		else{
+			executeAttack(monsterSprite, heroSprite);
+		}
+	}
+
+	private int getResourceByName(String mDrawableName){
+		return getResources().getIdentifier(mDrawableName, "drawable", getPackageName());
+	}
+
+	private void executeAttack(Sprite attacker, Sprite defender){
+		attacker.runAttackAnimation(this);
+		defender.runHurtAnimation(this);
+		attacker.runAnimation();
+		defender.runAnimation();
+		defender.setHearts(defender.getHearts() - 1);
+		if (defender.getHearts() <= 0){
+			//TODO end screen
+		}
+		else{
+			currentTask++;
+			displayTask();
+		}
 	}
 }

@@ -4,10 +4,13 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
+import android.util.Log;
+
 import com.le.hoc.bl.CalculusFactory;
 import com.le.hoc.bl.CalculusInfo;
 
 import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
 
 /**
  *
@@ -34,6 +37,14 @@ public class ExampleUnitTest {
 				}
 			}
 			assertTrue(found);
+		}
+	}
+
+	@Test
+	public void random_generation(){
+		for(int i = 0; i < 10; i++){
+			int v = ThreadLocalRandom.current().nextInt(1, 9 + 1);
+			System.out.println(v);
 		}
 	}
 }
