@@ -27,7 +27,11 @@ public class CalculusInfo {
 		return answers;
 	}
 
-	private List<Integer> answers;
+	public String getAnswer(int index){
+		return getAnswers().get(index).toString();
+	}
+
+	private final List<Integer> answers;
 
 	public CalculusInfo(){
 		answers = new ArrayList<>();

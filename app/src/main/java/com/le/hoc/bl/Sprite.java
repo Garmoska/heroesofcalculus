@@ -1,12 +1,9 @@
 package com.le.hoc.bl;
 
 import android.graphics.drawable.AnimationDrawable;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
-
-import com.le.hoc.R;
 
 public class Sprite {
 	public void runAnimation(){
@@ -27,7 +24,7 @@ public class Sprite {
 
 	private int hearts;
 
-	private void runAnimationRoutines(AppCompatActivity activity, String action){
+	private void setAnimationRoutines(AppCompatActivity activity, String action){
 		ImageView iv = activity.findViewById(getIdImageView());
 		iv.getLayoutParams().width = getWidth();
 		iv.getLayoutParams().height = getHeight();
@@ -38,20 +35,20 @@ public class Sprite {
 		animationDrawable = (AnimationDrawable) iv.getBackground();
 	}
 
-	public void runIdleAnimation(AppCompatActivity activity){
-		runAnimationRoutines(activity, "idle");
+	public void setIdleAnimation(AppCompatActivity activity){
+		setAnimationRoutines(activity, "idle");
 	}
 
-	public void runHurtAnimation(AppCompatActivity activity){
-		runAnimationRoutines(activity, "hurt");
+	public void setHurtAnimation(AppCompatActivity activity){
+		setAnimationRoutines(activity, "hurt");
 	}
 
-	public void runAttackAnimation(AppCompatActivity activity){
-		runAnimationRoutines(activity, "attack");
+	public void setAttackAnimation(AppCompatActivity activity){
+		setAnimationRoutines(activity, "attack");
 	}
 
-	public void runDieAnimation(AppCompatActivity activity){
-		runAnimationRoutines(activity, "die");
+	public void setDieAnimation(AppCompatActivity activity){
+		setAnimationRoutines(activity, "die");
 	}
 
 	public Sprite(int idImageView, String resName, int width, int height){

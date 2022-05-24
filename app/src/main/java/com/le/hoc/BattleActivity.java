@@ -1,12 +1,15 @@
 package com.le.hoc;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.ButtonBarLayout;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.le.hoc.bl.CalculusFactory;
@@ -21,6 +24,7 @@ public class BattleActivity extends AppCompatActivity {
 	private Sprite monsterSprite;
 	private List<CalculusInfo> tasks;
 	private int currentTask;
+	public static final String OUTCOME_KEY = "com.le.hoc.OUTCOME_KEY";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -34,8 +38,8 @@ public class BattleActivity extends AppCompatActivity {
 		//init both sprites
 		heroSprite = new Sprite(R.id.ivHero, "dragon", 700, 700);
 		monsterSprite = new Sprite(R.id.ivMonster, "jinn", 500, 500);
-		heroSprite.runIdleAnimation(this);
-		monsterSprite.runIdleAnimation(this);
+		heroSprite.setIdleAnimation(this);
+		monsterSprite.setIdleAnimation(this);
 		//
 		int baseValue = ThreadLocalRandom.current().nextInt(2, 9 + 1);
 		tasks = CalculusFactory.prepareTasks(baseValue, 5);
@@ -50,10 +54,10 @@ public class BattleActivity extends AppCompatActivity {
 		final Button btnAnswer4 = findViewById(R.id.btnAnswer4);
 		final CalculusInfo ci = tasks.get(currentTask);
 		txtCalculus.setText(ci.getCalculus());
-		btnAnswer1.setText(ci.getAnswers().get(0).toString());
-		btnAnswer2.setText(ci.getAnswers().get(1).toString());
-		btnAnswer3.setText(ci.getAnswers().get(2).toString());
-		btnAnswer4.setText(ci.getAnswers().get(3).toString());
+		btnAnswer1.setText(ci.getAnswer(0));
+		btnAnswer2.setText(ci.getAnswer(1));
+		btnAnswer3.setText(ci.getAnswer(2));
+		btnAnswer4.setText(ci.getAnswer(3));
 	}
 
 	@Override
@@ -79,18 +83,57 @@ public class BattleActivity extends AppCompatActivity {
 		return getResources().getIdentifier(mDrawableName, "drawable", getPackageName());
 	}
 
+	private int getResourceById(String resName){
+		return getResources().getIdentifier(resName, "id", getPackageName());
+	}
+
+	private AppCompatActivity getActivity(){
+		return this;
+	}
+
 	private void executeAttack(Sprite attacker, Sprite defender){
-		attacker.runAttackAnimation(this);
-		defender.runHurtAnimation(this);
-		attacker.runAnimation();
-		defender.runAnimation();
+		//remove hearth
+		boolean isHeroAttacker = attacker.getResName().equals("dragon");
+		//defender looses heart
+		final String rn = isHeroAttacker ? "Monster" : "Hero";
+		final String ivName = "iv" + rn + "Heart" + defender.getHearts();
+		int idImageView = getResourceById(ivName);
+		final ImageView iv = (ImageView)findViewById(idImageView);
+		iv.setVisibility(View.INVISIBLE);
 		defender.setHearts(defender.getHearts() - 1);
+		//play animation and redirect if needed
 		if (defender.getHearts() <= 0){
-			//TODO end screen
+			defender.setDieAnimation(getActivity());
+			defender.runAnimation();
+			final Handler handler = new Handler(Looper.getMainLooper());
+			handler.postDelayed(new Runnable() {
+				@Override
+				public void run() {
+					//show outcome activity
+					Intent intent = new Intent(getActivity(), OutcomeActivity.class);
+					intent.putExtra(OUTCOME_KEY, isHeroAttacker ? "hero" : "monster");
+					startActivity(intent);
+				}
+			}, 3500);
 		}
 		else{
+			attacker.setAttackAnimation(this);
+			defender.setHurtAnimation(this);
+			attacker.runAnimation();
+			defender.runAnimation();
+
 			currentTask++;
 			displayTask();
+			final Handler handler = new Handler(Looper.getMainLooper());
+			handler.postDelayed(new Runnable() {
+				@Override
+				public void run() {
+					attacker.setIdleAnimation(getActivity());
+					defender.setIdleAnimation(getActivity());
+					attacker.runAnimation();
+					defender.runAnimation();
+				}
+			}, 2000);
 		}
 	}
 }

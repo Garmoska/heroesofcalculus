@@ -5,4 +5,7 @@
     <string name="default_answer2">4</string>
     <string name="default_answer3">5</string>
     <string name="default_answer4">6</string>
+    <string name="outcome_victory">Victory!</string>
+    <string name="outcome_defeat">Defeat!</string>
+    <string name="try_again">Try Again</string>
 </resources>

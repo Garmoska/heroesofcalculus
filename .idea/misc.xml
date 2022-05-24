@@ -11,6 +11,14 @@
         <entry key="..\:/Leonov/Android/heroesofcalculus/app/src/main/res/drawable/jinn_idle.xml" value="0.1" />
         <entry key="..\:/Leonov/Android/heroesofcalculus/app/src/main/res/layout/activity_battle.xml" value="0.4" />
         <entry key="..\:/Leonov/Android/heroesofcalculus/app/src/main/res/layout/activity_main.xml" value="0.4" />
+        <entry key="..\:/temp/Android/heroesofcalculus/app/src/main/res/drawable/dragon_attack.xml" value="0.1045" />
+        <entry key="..\:/temp/Android/heroesofcalculus/app/src/main/res/drawable/dragon_die.xml" value="0.1045" />
+        <entry key="..\:/temp/Android/heroesofcalculus/app/src/main/res/drawable/dragon_hurt.xml" value="0.1045" />
+        <entry key="..\:/temp/Android/heroesofcalculus/app/src/main/res/drawable/jinn_attack.xml" value="0.1045" />
+        <entry key="..\:/temp/Android/heroesofcalculus/app/src/main/res/drawable/jinn_die.xml" value="0.1045" />
+        <entry key="..\:/temp/Android/heroesofcalculus/app/src/main/res/drawable/jinn_hurt.xml" value="0.131" />
+        <entry key="..\:/temp/Android/heroesofcalculus/app/src/main/res/layout/activity_battle.xml" value="0.45" />
+        <entry key="..\:/temp/Android/heroesofcalculus/app/src/main/res/layout/activity_outcome.xml" value="0.335" />
       </map>
     </option>
   </component>
