@@ -1,11 +1,11 @@
 <resources>
-    <string name="app_name">Heroes Of Calculus</string>
-    <string name="default_tvCalculus_text">2 + 2 = ?</string>
-    <string name="default_answer1">3</string>
-    <string name="default_answer2">4</string>
-    <string name="default_answer3">5</string>
-    <string name="default_answer4">6</string>
-    <string name="outcome_victory">Victory!</string>
-    <string name="outcome_defeat">Defeat!</string>
-    <string name="try_again">Try Again</string>
+	<string name="app_name">Heroes Of Calculus</string>
+	<string name="default_tvCalculus_text" translatable="false">2 + 2 = ?</string>
+	<string name="default_answer1" translatable="false">3</string>
+	<string name="default_answer2" translatable="false">4</string>
+	<string name="default_answer3" translatable="false">5</string>
+	<string name="default_answer4" translatable="false">6</string>
+	<string name="outcome_victory">Victory!</string>
+	<string name="outcome_defeat">Defeat!</string>
+	<string name="try_again">Try Again</string>
 </resources>
