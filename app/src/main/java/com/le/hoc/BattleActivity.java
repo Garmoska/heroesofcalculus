@@ -1,8 +1,5 @@
 package com.le.hoc;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -12,12 +9,16 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
+
 import com.le.hoc.bl.CalculusFactory;
 import com.le.hoc.bl.CalculusInfo;
 import com.le.hoc.bl.Sprite;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ThreadLocalRandom;
+import java.util.Random;
 
 public class BattleActivity extends AppCompatActivity {
 	private Sprite heroSprite;
@@ -25,23 +26,32 @@ public class BattleActivity extends AppCompatActivity {
 	private List<CalculusInfo> tasks;
 	private int currentTask;
 	public static final String OUTCOME_KEY = "com.le.hoc.OUTCOME_KEY";
+	private final Random rnd = new Random();
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_battle);
 		//set background picture
-		int randomNum = ThreadLocalRandom.current().nextInt(1, 4 + 1);
+		int randomNum = rnd.nextInt(4) + 1;
 		int resID = getResourceByName("battleground" + randomNum);
 		ConstraintLayout layout = findViewById(R.id.mainLayout);
 		layout.setBackgroundResource(resID);
 		//init both sprites
+		List<String> monsters = new ArrayList<>();
+		monsters.add("demon");
+		monsters.add("lizard");
+		monsters.add("jinn");
+		monsters.add("medusa");
+		randomNum = rnd.nextInt(monsters.size());
 		heroSprite = new Sprite(R.id.ivHero, "dragon", 700, 700);
-		monsterSprite = new Sprite(R.id.ivMonster, "jinn", 500, 500);
+		monsterSprite = new Sprite(R.id.ivMonster, monsters.get(randomNum), 600, 600);
 		heroSprite.setIdleAnimation(this);
 		monsterSprite.setIdleAnimation(this);
 		//
-		int baseValue = ThreadLocalRandom.current().nextInt(2, 9 + 1);
+		int baseValue = getIntent().getIntExtra(SettingsActivity.BASE_VALUE_KEY, 2);
+		//int baseValue = rnd.nextInt(8) + 1;
+		//if (baseValue == 1) baseValue = 2;
 		tasks = CalculusFactory.prepareTasks(baseValue, 5);
 		currentTask = 0;
 	}
@@ -101,6 +111,8 @@ public class BattleActivity extends AppCompatActivity {
 		final ImageView iv = (ImageView)findViewById(idImageView);
 		iv.setVisibility(View.INVISIBLE);
 		defender.setHearts(defender.getHearts() - 1);
+		attacker.setAttackAnimation(this);
+		attacker.runAnimation();
 		//play animation and redirect if needed
 		if (defender.getHearts() <= 0){
 			defender.setDieAnimation(getActivity());
@@ -111,19 +123,14 @@ public class BattleActivity extends AppCompatActivity {
 				public void run() {
 					//show outcome activity
 					Intent intent = new Intent(getActivity(), OutcomeActivity.class);
-					intent.putExtra(OUTCOME_KEY, isHeroAttacker ? "hero" : "monster");
+					intent.putExtra(OUTCOME_KEY, isHeroAttacker );//? "hero" : "monster"
 					startActivity(intent);
 				}
 			}, 3500);
 		}
 		else{
-			attacker.setAttackAnimation(this);
 			defender.setHurtAnimation(this);
 			attacker.runAnimation();
-			defender.runAnimation();
-
-			currentTask++;
-			displayTask();
 			final Handler handler = new Handler(Looper.getMainLooper());
 			handler.postDelayed(new Runnable() {
 				@Override
@@ -132,6 +139,8 @@ public class BattleActivity extends AppCompatActivity {
 					defender.setIdleAnimation(getActivity());
 					attacker.runAnimation();
 					defender.runAnimation();
+					currentTask++;
+					displayTask();
 				}
 			}, 2000);
 		}

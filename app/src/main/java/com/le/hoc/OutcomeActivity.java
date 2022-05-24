@@ -14,10 +14,10 @@ public class OutcomeActivity extends AppCompatActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_outcome);
-		String key = getIntent().getStringExtra(BattleActivity.OUTCOME_KEY);
 		final TextView tvResult = (TextView)findViewById(R.id.tvResult);
 		final ImageView ivOutcome = (ImageView)findViewById(R.id.ivOutcome);
-		if (key.equals("hero")){
+		boolean isVictory = getIntent().getBooleanExtra(BattleActivity.OUTCOME_KEY, false);
+		if (isVictory){
 			tvResult.setText(R.string.outcome_victory);
 			ivOutcome.setImageResource( R.drawable.dragon_win);
 		}
@@ -28,6 +28,6 @@ public class OutcomeActivity extends AppCompatActivity {
 	}
 
 	public void buttonTryAgainClick(View view){
-		startActivity(new Intent(this, BattleActivity.class));
+		startActivity(new Intent(this, SettingsActivity.class));
 	}
 }
