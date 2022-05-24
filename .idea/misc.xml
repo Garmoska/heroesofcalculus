@@ -3,12 +3,20 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Leonov/Android/heroesofcalculus/app/src/main/res/drawable/demon_die.xml" value="0.114" />
         <entry key="..\:/Leonov/Android/heroesofcalculus/app/src/main/res/drawable/dragon_attack.xml" value="0.1" />
+        <entry key="..\:/Leonov/Android/heroesofcalculus/app/src/main/res/drawable/dragon_die.xml" value="0.1" />
         <entry key="..\:/Leonov/Android/heroesofcalculus/app/src/main/res/drawable/dragon_hurt.xml" value="0.1" />
         <entry key="..\:/Leonov/Android/heroesofcalculus/app/src/main/res/drawable/dragon_idle.xml" value="0.1" />
         <entry key="..\:/Leonov/Android/heroesofcalculus/app/src/main/res/drawable/jinn_attack.xml" value="0.1" />
+        <entry key="..\:/Leonov/Android/heroesofcalculus/app/src/main/res/drawable/jinn_die.xml" value="0.114" />
         <entry key="..\:/Leonov/Android/heroesofcalculus/app/src/main/res/drawable/jinn_hurt.xml" value="0.1" />
         <entry key="..\:/Leonov/Android/heroesofcalculus/app/src/main/res/drawable/jinn_idle.xml" value="0.1" />
+        <entry key="..\:/Leonov/Android/heroesofcalculus/app/src/main/res/drawable/lizard_attack.xml" value="0.114" />
+        <entry key="..\:/Leonov/Android/heroesofcalculus/app/src/main/res/drawable/lizard_die.xml" value="0.114" />
+        <entry key="..\:/Leonov/Android/heroesofcalculus/app/src/main/res/drawable/lizard_hurt.xml" value="0.114" />
+        <entry key="..\:/Leonov/Android/heroesofcalculus/app/src/main/res/drawable/medusa_die.xml" value="0.114" />
+        <entry key="..\:/Leonov/Android/heroesofcalculus/app/src/main/res/drawable/medusa_hurt.xml" value="0.114" />
         <entry key="..\:/Leonov/Android/heroesofcalculus/app/src/main/res/layout/activity_battle.xml" value="0.4" />
         <entry key="..\:/Leonov/Android/heroesofcalculus/app/src/main/res/layout/activity_main.xml" value="0.4" />
         <entry key="..\:/temp/Android/heroesofcalculus/app/src/main/res/drawable/demon_attack.xml" value="0.1045" />
